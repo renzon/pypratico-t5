@@ -63,4 +63,7 @@ target/
 .idea
 
 # Python virtualenvs
-venv/
+venv/*
+
+# Nao ignorar requirements.txt
+!venv/requirements.txt
