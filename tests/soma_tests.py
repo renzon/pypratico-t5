@@ -1,7 +1,14 @@
+import os
+import sys
 import unittest
 
-from pypraticot5 import soma
 
+diretorio_de_testes = os.path.dirname(__file__)
+diretorio_do_projeto = os.path.join(diretorio_de_testes, '..')
+diretorio_do_projeto = os.path.abspath(diretorio_do_projeto)
+sys.path.append(diretorio_do_projeto)
+
+from pypraticot5 import soma
 
 class SomaTests(unittest.TestCase):
     def testes_soma_de_zeros(self):
