@@ -1,2 +1,2 @@
 def soma(n, n2):
-    return 0
+    return n + n2
