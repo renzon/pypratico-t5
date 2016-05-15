@@ -8,5 +8,16 @@ class TelefonistasTests(unittest.TestCase):
         telefonista_obj = telefonista.Telefonista()
         self.assertListEqual([], telefonista_obj._contatos)
 
-# telefonista_obj.adicionar(contato)
-# contato = ('Renzo', '2345678')
+    def test_adicionar_um_contato(self):
+        contato = ('Renzo', '2345678')
+        telefonista_obj = telefonista.Telefonista()
+        telefonista_obj.adicionar(contato)
+        self.assertListEqual([contato], telefonista_obj._contatos)
+
+    def test_adicionar_dois_contato(self):
+        renzo = ('Renzo', '2345678')
+        karen = ('Karen', '8765432')
+        telefonista_obj = telefonista.Telefonista()
+        telefonista_obj.adicionar(renzo)
+        telefonista_obj.adicionar(karen)
+        self.assertListEqual([renzo, karen], telefonista_obj._contatos)
