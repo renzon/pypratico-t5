@@ -11,9 +11,4 @@ class SortearTests(TestCase):
         self.assertEqual(2, resultado)
 
     def test_sortear_lista_vazia(self):
-        try:
-            sortear([])
-        except SorteioExcecao:
-            pass
-        else:
-            self.fail('Deveria ter lançado erro Sorteio Exceção')
+        self.assertRaises(SorteioExcecao, sortear, [])
