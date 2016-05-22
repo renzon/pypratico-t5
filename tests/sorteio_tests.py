@@ -12,3 +12,7 @@ class SortearTests(TestCase):
 
     def test_sortear_lista_vazia(self):
         self.assertRaises(SorteioExcecao, sortear, [])
+
+    def test_sortear_lista_com_10_elementos(self):
+        resultado = sortear(list(range(2)))
+        self.assertEqual(1, resultado)
