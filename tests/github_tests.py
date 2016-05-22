@@ -1,7 +1,6 @@
 from unittest.case import TestCase
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
-from pypraticot5 import github
 from pypraticot5.github import buscar_avatar
 
 
@@ -14,21 +13,15 @@ class BuscarAvatarBasicoUnitario(TestCase):
             return {'avatar_url': 'https://avatars.githubusercontent.com/u/3457115?v=3'}
 
         response_mock.json = json
-        self.get_mock = Mock(return_value=response_mock)
-        self.get_real = github.requests.get
-        github.requests.get = self.get_mock
+        self.response_mock = response_mock
 
-    def tearDown(self):
-        # Desfazendo mock
-        github.requests.get = self.get_real
-
-    def test_buscar_avatar_de_usuario(self):
+    @patch('pypraticot5.github.requests.get')
+    def test_buscar_avatar_de_usuario(self, get_mock):
         # Realizando testes
+        get_mock.return_value = self.response_mock
         resultado = buscar_avatar('renzon')
         self.assertEqual('https://avatars.githubusercontent.com/u/3457115?v=3', resultado)
-        self.get_mock.assert_called_once_with('https://api.github.com/users/renzon')
-
-
+        get_mock.assert_called_once_with('https://api.github.com/users/renzon')
 
 
 class BuscarAvatarIntegracao(TestCase):
