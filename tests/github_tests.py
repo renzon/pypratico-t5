@@ -14,10 +14,13 @@ class BuscarAvatarBasicoUnitario(TestCase):
 
         response_mock.json = json
         get_mock = Mock(return_value=response_mock)
+        get_real=github.requests.get
         github.requests.get = get_mock
         resultado = buscar_avatar('renzon')
         self.assertEqual('https://avatars.githubusercontent.com/u/3457115?v=3', resultado)
         get_mock.assert_called_once_with('https://api.github.com/users/renzon')
+        github.requests.get = get_real
+
 
 
 class BuscarAvatarIntegracao(TestCase):
