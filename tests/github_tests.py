@@ -6,7 +6,7 @@ from pypraticot5.github import buscar_avatar
 
 
 class BuscarAvatarBasicoUnitario(TestCase):
-    def test_buscar_avatar_de_usuario(self):
+    def setUp(self):
         # Mockando Objetos
         response_mock = Mock()
 
@@ -14,17 +14,20 @@ class BuscarAvatarBasicoUnitario(TestCase):
             return {'avatar_url': 'https://avatars.githubusercontent.com/u/3457115?v=3'}
 
         response_mock.json = json
-        get_mock = Mock(return_value=response_mock)
-        get_real=github.requests.get
-        github.requests.get = get_mock
+        self.get_mock = Mock(return_value=response_mock)
+        self.get_real = github.requests.get
+        github.requests.get = self.get_mock
 
+    def tearDown(self):
+        # Desfazendo mock
+        github.requests.get = self.get_real
+
+    def test_buscar_avatar_de_usuario(self):
         # Realizando testes
         resultado = buscar_avatar('renzon')
-        self.assertEqual('https://avatars.githubusercontent.com/u/3457115?v=', resultado)
-        get_mock.assert_called_once_with('https://api.github.com/users/renzon')
+        self.assertEqual('https://avatars.githubusercontent.com/u/3457115?v=3', resultado)
+        self.get_mock.assert_called_once_with('https://api.github.com/users/renzon')
 
-        # Desfazendo mock
-        github.requests.get = get_real
 
 
 
