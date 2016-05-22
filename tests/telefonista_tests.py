@@ -38,7 +38,8 @@ class TelefonistaBasicTests(unittest.TestCase):
         telefonista_obj = telefonista.Telefonista()
         telefonista_obj.adicionar(renzo)
         telefone_de_mentira = TelefoneDeMentira()
-        ligacoes = list(telefonista_obj.ligar(telefone_de_mentira))
+        telefonista_obj._telefone = telefone_de_mentira
+        ligacoes = list(telefonista_obj.ligar())
         self.assertListEqual(['Telefonando de mentira para 2345678. Olá Renzo'],
                              ligacoes)
         self.assertEqual(renzo[1], telefone_de_mentira.numero)
@@ -50,7 +51,8 @@ class TelefonistaBasicTests(unittest.TestCase):
         telefonista_obj.adicionar(renzo)
         telefonista_obj.adicionar(karen)
         telefone_de_mentira = TelefoneDeMentira()
-        ligacoes = list(telefonista_obj.ligar(telefone_de_mentira))
+        telefonista_obj._telefone = telefone_de_mentira
+        ligacoes = list(telefonista_obj.ligar())
         self.assertListEqual(['Telefonando de mentira para 2345678. Olá Renzo',
                               'Telefonando de mentira para 8765432. Olá Karen'],
                              ligacoes)
