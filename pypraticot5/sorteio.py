@@ -1,4 +1,4 @@
-from random import randint
+from random import choice
 
 
 class SorteioExcecao(Exception):
@@ -8,6 +8,4 @@ class SorteioExcecao(Exception):
 def sortear(lista):
     if len(lista) == 0:
         raise SorteioExcecao('Não é possível sortear elemento de lista vazia')
-    indice = randint(0, len(lista)-1)
-    print(indice)
-    return lista[indice]
+    return choice(lista)
